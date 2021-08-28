@@ -5,12 +5,12 @@
     "prebuild": "rimraf dist",
     "postinstall": "npm run build"
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@types/webpack": "^5.28.0",
     "@types/webpack-env": "^1.16.2",
     "typescript": "^4.4.0-beta",
     "rimraf": "^2.7.1",
     "vue-router": "^4.0.10"
-  },
-  "devDependencies": {}
+  }
 }
