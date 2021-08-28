@@ -2,8 +2,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc --project .",
-    "prebuild": "rimraf dist",
-    "postinstall": "npm run build"
+    "prebuild": "rimraf dist"
   },
   "dependencies": {},
   "devDependencies": {
