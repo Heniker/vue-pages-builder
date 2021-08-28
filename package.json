@@ -2,11 +2,14 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc --project .",
-    "prebuild": "rimraf dist"
+    "prebuild": "rimraf dist",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {
+    "@types/webpack": "^5.28.0",
+    "@types/webpack-env": "^1.16.2"
   },
   "devDependencies": {
-    "@types/webpack": "^5.28.0",
-    "@types/webpack-env": "^1.16.2",
     "rimraf": "^2.7.1",
     "typescript": "^4.4.0-beta",
     "vue-router": "^4.0.10"
