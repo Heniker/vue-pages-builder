@@ -2,15 +2,15 @@ export const deepGet = (
   obj: Record<string | symbol | number, any>,
   path: (string | symbol | number)[]
 ) => {
-  return path.reduce((p, c) => (p && p[c]) || null, obj)
+  return path.reduce((val, key) => (val && val[key]) || null, obj)
 }
 
 export const deepSet = (
   obj: Record<string | symbol | number, any>,
-  path: (string | symbol)[],
+  path: (string | symbol | number)[],
   val: any
 ) => {
-  path.slice(0, -1).reduce((p, c) => (p && p[c]) || ((p[c] = {}), p[c]), obj)[path.slice(-1)[0]] =
+  path.slice(0, -1).reduce((val, key) => (val && val[key]) || ((val[key] = {}), val[key]), obj)[path.slice(-1)[0]] =
     val
   return true
 }
