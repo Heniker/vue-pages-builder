@@ -5,12 +5,17 @@ import App from './App.vue'
 
 const app = Vue.createApp(App)
 
+const routes = buildPages(
+  require.context('./pages', true, /.*/, 'weak'),
+  require.context('./pages', true, /.*/, 'lazy')
+)
+
+console.log('routes:')
+console.log(routes)
+
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHistory(),
-  routes: buildPages(
-    require.context('./pages', true, /.*/, 'weak'),
-    require.context('./pages', true, /.*/, 'lazy')
-  ),
+  routes,
 })
 
 app.use(router)

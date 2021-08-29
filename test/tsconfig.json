@@ -1,4 +1,7 @@
 {
   "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "paths": { "@/*": ["1/pages/*"] }
+  },
   "exclude": ["node_modules"]
 }

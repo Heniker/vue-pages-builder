@@ -32,6 +32,7 @@ module.exports = async (_, argv) => {
     resolve: {
       extensions: ['.js', '.vue', '.ts'],
       alias: {
+        '@': path.resolve(__dirname, './1/pages'),
         // vue: isDev ? 'vue/dist/vue.runtime.js' : 'vue/dist/vue.runtime.min.js',
       },
     },
@@ -218,7 +219,7 @@ module.exports = async (_, argv) => {
         }
       : undefined,
     performance: {
-      hints: 'warning',
+      hints: false,
     },
     plugins: [
       new VueLoaderPlugin(),
@@ -239,6 +240,9 @@ module.exports = async (_, argv) => {
         template: htmlTemplate,
       }),
     ],
+    node: {
+      __filename: true,
+    },
     output: {
       filename: 'js/[name].[hash].js',
       clean: true,

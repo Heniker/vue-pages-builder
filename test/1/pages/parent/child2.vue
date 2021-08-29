@@ -1,7 +1,13 @@
 <template>
   <div>
-    <h1>parent/child2</h1>
+    <h1>{{ filePath }}</h1>
     <router-view></router-view>
+    <p>Go to:</p>
+    <p>Matched Children:</p>
   </div>
 </template>
-<style scoped></style>
+<script lang="ts">
+export default {
+  data: () => ({ filePath: __filename.slice(0, __filename.length - __resourceQuery.length) }),
+}
+</script>
