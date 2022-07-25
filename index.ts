@@ -43,7 +43,7 @@ export const buildPages = (weakContext: ContextT, persistentContext: ContextT) =
   const keys = weakContext.keys().filter((it) => it.endsWith('.vue'))
 
   keys.forEach((it) => {
-    const path = it.slice(2).slice(0, -4).split('/') as (string | symbol)[]
+    const path = it.slice(2).slice(0, -4).split('/') as string[]
     deepSet(routerTree, [...path, mainKey], {
       name: weakContext.resolve(it),
       component: () => persistentContext(it),

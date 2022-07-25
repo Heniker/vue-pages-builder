@@ -33,7 +33,7 @@ module.exports = async (_, argv) => {
       extensions: ['.js', '.vue', '.ts'],
       alias: {
         '@': path.resolve(__dirname, './1/pages'),
-        // vue: isDev ? 'vue/dist/vue.runtime.js' : 'vue/dist/vue.runtime.min.js',
+        vue: 'vue/dist/vue.esm-bundler.js',
       },
     },
     optimization: {
@@ -211,11 +211,7 @@ module.exports = async (_, argv) => {
           hot: true,
           // index: entryPath,
           open: false,
-          overlay: true,
           port,
-          stats: {
-            normal: true,
-          },
         }
       : undefined,
     performance: {

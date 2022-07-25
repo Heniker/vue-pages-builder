@@ -32,4 +32,3 @@ export const buildPages = (weakContext, persistentContext) => {
     });
     return traverseTree(routerTree, [], '');
 };
-//# sourceMappingURL=index.js.map

@@ -1,7 +1,16 @@
 {
-  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "paths": { "@/*": ["1/pages/*"] }
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "types": ["webpack", "webpack-env"]
   },
-  "exclude": ["node_modules"]
+  "include": ["global.d.ts", "1"],
+  "typeAcquisition": { "enable": true }
 }

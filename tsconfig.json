@@ -1,21 +1,16 @@
 {
   "compilerOptions": {
-    "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "alwaysStrict": true,
-    "strict": true,
-    "sourceMap": true,
-    "target": "ESNext",
     "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
     "declaration": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
     "outDir": "dist",
-    "lib": ["DOM", "ESNext", "ES6", "DOM.Iterable"],
-    "moduleResolution": "node",
-    "experimentalDecorators": true,
-    "importHelpers": true,
-    "typeRoots": ["./node_modules/@types", "./node_modules/vuetify/types"],
-    "baseUrl": "."
+    "types": ["webpack", "webpack-env"]
   },
-  "exclude": ["node_modules", "test"],
+  "include": ["index.ts", "util"],
   "typeAcquisition": { "enable": true }
 }
