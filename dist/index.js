@@ -1,5 +1,3 @@
-// See this in case of TS erros. Probably update your TS version
-// https://github.com/microsoft/TypeScript/issues/1863
 import { deepSet } from './util';
 const mainKey = Symbol('main');
 const traverseTree = (tree, routeSegment, path) => {
@@ -22,7 +20,10 @@ const traverseTree = (tree, routeSegment, path) => {
 };
 export const buildPages = (weakContext, persistentContext) => {
     const routerTree = {};
-    const keys = weakContext.keys().filter((it) => it.endsWith('.vue'));
+    const keys = weakContext
+        .keys()
+        .flatMap((it) => /.+\.(((ts|js)x?)|vue)$/.exec(it)?.[0] || []);
+    console.log(keys);
     keys.forEach((it) => {
         const path = it.slice(2).slice(0, -4).split('/');
         deepSet(routerTree, [...path, mainKey], {

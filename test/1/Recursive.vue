@@ -9,11 +9,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, defineProps } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
   name: 'Recursive',
   props: { items: Object as PropType<import('vue-router').RouteLocationMatched[] | import('vue-router').RouteRecordRaw[]> },
-  setup(props, ctx) { },
 })
 </script>
