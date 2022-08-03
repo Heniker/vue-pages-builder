@@ -1,11 +1,12 @@
 {
   "scripts": {
-    "dev": "npx webpack serve --entry ./1/main.ts --mode development"
+    "dev": "npx webpack serve --entry ./1/main.ts --mode development",
+    "build": "npx webpack --entry ./1/main.ts --mode production"
   },
   "dependencies": {
+    "build-pages": "../",
     "vue": "^3.2.37",
-    "vue-router": "^4.1.2",
-    "build-pages": "../"
+    "vue-router": "^4.1.2"
   },
   "devDependencies": {
     "@types/webpack": "^5.28.0",
