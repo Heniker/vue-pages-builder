@@ -7,9 +7,17 @@ type RouterTreeT = {
   [routeRecordKey]: import('vue-router').RouteRecordRaw
 }
 
-const routeRecordKey: unique symbol = Symbol('main')
+const routeRecordKey: unique symbol = Symbol('routeRecord')
 
-export const buildPages = (weakContext: ContextT, persistentContext: ContextT) => {
+export const buildPages = (
+  weakContext: ContextT,
+  persistentContext: ContextT,
+  {
+    prependPath = '/',
+  }: {
+    prependPath?: string
+  } = {}
+) => {
   const routerTree = {} as RouterTreeT
   const keys = weakContext
     .keys()
@@ -23,8 +31,7 @@ export const buildPages = (weakContext: ContextT, persistentContext: ContextT) =
     })
   })
 
-  const result = traverseTree(routerTree, '/')
-  
+  const result = traverseTree(routerTree, prependPath)
   return result
 }
 
@@ -32,9 +39,9 @@ function traverseTree(tree: RouterTreeT, path: string) {
   const names = Object.getOwnPropertyNames(tree)
   const routeRecord = tree[routeRecordKey]
 
-  const result = []
+  const result: import('vue-router').RouteRecordRaw[] = []
 
-  let currentRoute = result
+  let currentRoute: import('vue-router').RouteRecordRaw[] = result
 
   if (routeRecord) {
     result.push(routeRecord)
@@ -53,7 +60,7 @@ function traverseTree(tree: RouterTreeT, path: string) {
 }
 
 function getRoutePath(path_: string, lastSegment_: string) {
-  const path = path_ === '/' ? '' : path_
+  const path = path_.endsWith('/') ? path_.slice(0, -1) : path_
   const lastSegment =
     lastSegment_ === 'index'
       ? ''

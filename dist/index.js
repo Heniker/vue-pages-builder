@@ -1,6 +1,6 @@
 import { deepSet } from './util/index';
-const routeRecordKey = Symbol('main');
-export const buildPages = (weakContext, persistentContext) => {
+const routeRecordKey = Symbol('routeRecord');
+export const buildPages = (weakContext, persistentContext, { prependPath = '/', } = {}) => {
     const routerTree = {};
     const keys = weakContext
         .keys()
@@ -12,7 +12,7 @@ export const buildPages = (weakContext, persistentContext) => {
             component: () => persistentContext(it),
         });
     });
-    const result = traverseTree(routerTree, '/');
+    const result = traverseTree(routerTree, prependPath);
     return result;
 };
 function traverseTree(tree, path) {
@@ -32,7 +32,7 @@ function traverseTree(tree, path) {
     return result;
 }
 function getRoutePath(path_, lastSegment_) {
-    const path = path_ === '/' ? '' : path_;
+    const path = path_.endsWith('/') ? path_.slice(0, -1) : path_;
     const lastSegment = lastSegment_ === 'index'
         ? ''
         : lastSegment_.startsWith('_')
