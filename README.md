@@ -1,6 +1,8 @@
-This is something like **nuxt routing by pages directory**
+### VueRouteBuilder
 
-AFAIK it only works with webpack, which should not be a problem if you use `vue/cli`.
+> A tool to transform directory into vue-router routes
+
+Only works with webpack. Resulting route structure and file naming rules should be similar to [Nuxt Pages](https://nuxtjs.org/docs/directory-structure/pages).
 
 Use it like this:
 
@@ -27,6 +29,8 @@ Code is not published to npm ATM, but it is possible to specify
 in your `package.json` and it should just work (at lest it worked last time I tried).
 
 Although I would suggest forking this repo instead and using your own URL as I can't promise I won't break anything here in the future.
+
+In order to get TS types for require.context it is possible to install `@types/webpack-env`
 
 ### Questions you probably already know the answer to
 

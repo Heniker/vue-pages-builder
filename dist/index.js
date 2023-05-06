@@ -1,5 +1,4 @@
-import { deepSet } from './util/index';
-const routeRecordKey = Symbol('routeRecord');
+const routeRecordKey = Symbol('RouteRecord');
 export const buildPages = (weakContext, persistentContext, { prependPath = '/', } = {}) => {
     const routerTree = {};
     const keys = weakContext
@@ -8,7 +7,7 @@ export const buildPages = (weakContext, persistentContext, { prependPath = '/', 
     keys.forEach((it) => {
         const path = it.slice(2).split('.').slice(0, -1).join('').split('/');
         deepSet(routerTree, [...path, routeRecordKey], {
-            name: weakContext.resolve(it),
+            name: String(weakContext.resolve(it)),
             component: () => persistentContext(it),
         });
     });
@@ -31,12 +30,15 @@ function traverseTree(tree, path) {
     });
     return result;
 }
-function getRoutePath(path_, lastSegment_) {
-    const path = path_.endsWith('/') ? path_.slice(0, -1) : path_;
-    const lastSegment = lastSegment_ === 'index'
+function getRoutePath(path, lastSegment) {
+    var path = path.endsWith('/') ? path.slice(0, -1) : path;
+    var lastSegment = lastSegment === 'index'
         ? ''
-        : lastSegment_.startsWith('_')
-            ? `:${lastSegment_.slice(1)}`
-            : `${lastSegment_}`;
+        : lastSegment.startsWith('_')
+            ? `:${lastSegment.slice(1)}`
+            : `${lastSegment}`;
     return `${path}/${lastSegment}`;
+}
+function deepSet(obj, path, value) {
+    path.slice(0, -1).reduce((acc, key) => (acc && acc[key]) || ((acc[key] = {}), acc[key]), obj)[path.slice(-1)[0]] = value;
 }
