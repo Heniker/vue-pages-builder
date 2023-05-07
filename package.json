@@ -1,5 +1,6 @@
 {
   "main": "dist/index.js",
+  "name": "vue-pages-builder",
   "scripts": {
     "build": "tsc --project .",
     "prebuild": "rimraf dist"
