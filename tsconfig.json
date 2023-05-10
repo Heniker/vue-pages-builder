@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "outDir": "dist",
+    "types": ["webpack", "webpack-env"]
+  },
+  "include": ["index.ts", "util"],
+  "typeAcquisition": { "enable": true }
+}
