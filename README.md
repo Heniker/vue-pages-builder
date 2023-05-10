@@ -38,7 +38,7 @@ You may also need to specify
 ```json
 {
   "compilerOptions": {
-    "types": ["node"],
+    "types": ["webpack", "webpack-env"],
   }
 }
 ```

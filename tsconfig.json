@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["ESNext"],
     "module": "ESNext",
     "target": "ESNext",
     "moduleResolution": "Node",
@@ -11,6 +12,6 @@
     "outDir": "dist",
     "types": ["webpack", "webpack-env"]
   },
-  "include": ["index.ts", "util"],
+  "include": ["index.ts"],
   "typeAcquisition": { "enable": true }
 }
