@@ -1,11 +1,9 @@
 type ContextT = ReturnType<typeof require.context>
 
 type RouterTreeT = {
-  [key: string | number]: RouterTreeT
+  [key: string]: RouterTreeT
   [routeRecordKey]: import('vue-router').RouteRecordRaw
 }
-
-type ValidKeyT = string | number | symbol
 
 const routeRecordKey: unique symbol = Symbol('RouteRecord')
 
@@ -14,8 +12,12 @@ export const buildPages = (
   persistentContext: ContextT,
   {
     prependPath = '/',
+    getName = (path) => weakContext.resolve(path),
   }: {
     prependPath?: string
+    getName?(
+      path: ReturnType<(typeof weakContext)['keys']>[number]
+    ): import('vue-router').RouteRecordName
   } = {}
 ) => {
   const routerTree = {} as RouterTreeT
@@ -26,13 +28,12 @@ export const buildPages = (
   keys.forEach((it) => {
     const path = it.slice(2).split('.').slice(0, -1).join('').split('/')
     deepSet(routerTree, [...path, routeRecordKey], {
-      name: weakContext.resolve(it), // Better provide unified key type. Webpack `resolve` can give numeric results
+      name: getName(it),
       component: () => persistentContext(it),
     })
   })
 
-  const result = traverseTree(routerTree, prependPath)
-  return result
+  return traverseTree(routerTree, prependPath)
 }
 
 function traverseTree(tree: RouterTreeT, path: string) {
@@ -71,6 +72,8 @@ function getRoutePath(path: string, lastSegment: string) {
   return `${path}/${lastSegment}`
 }
 
-function deepSet(obj: Record<ValidKeyT, unknown>, path: ValidKeyT[], value: unknown) {
-  path.slice(0, -1).reduce((acc, key) => (acc && acc[key]) || ((acc[key] = {}), acc[key]), obj)[path.slice(-1)[0]] = value
+function deepSet(obj: Record<PropertyKey, unknown>, path: PropertyKey[], value: unknown) {
+  path.slice(0, -1).reduce((acc, key) => (acc && acc[key]) || ((acc[key] = {}), acc[key]), obj)[
+    path.slice(-1)[0]
+  ] = value
 }
