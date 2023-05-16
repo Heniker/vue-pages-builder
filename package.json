@@ -3,8 +3,8 @@
   "name": "vue-pages-builder",
   "version": "0.0.1",
   "scripts": {
-    "build": "tsc --project .",
-    "prebuild": "rimraf dist"
+    "prebuild": "rimraf dist",
+    "build": "tsc --project ."
   },
   "devDependencies": {
     "@types/webpack": "^5.28.1",

@@ -1,5 +1,5 @@
 const routeRecordKey = Symbol('RouteRecord');
-export const buildPages = (weakContext, persistentContext, { prependPath = '/', } = {}) => {
+export const buildPages = (weakContext, persistentContext, { prependPath = '/', getName = (path) => weakContext.resolve(path), } = {}) => {
     const routerTree = {};
     const keys = weakContext
         .keys()
@@ -7,12 +7,11 @@ export const buildPages = (weakContext, persistentContext, { prependPath = '/', 
     keys.forEach((it) => {
         const path = it.slice(2).split('.').slice(0, -1).join('').split('/');
         deepSet(routerTree, [...path, routeRecordKey], {
-            name: weakContext.resolve(it),
+            name: getName(it),
             component: () => persistentContext(it),
         });
     });
-    const result = traverseTree(routerTree, prependPath);
-    return result;
+    return traverseTree(routerTree, prependPath);
 };
 function traverseTree(tree, path) {
     const names = Object.getOwnPropertyNames(tree);
