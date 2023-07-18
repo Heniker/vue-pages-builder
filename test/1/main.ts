@@ -8,6 +8,8 @@ const routes = buildPages(
   require.context('./pages', true, /.*/, 'lazy')
 )
 
+console.log(routes)
+
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHistory(),
   routes,

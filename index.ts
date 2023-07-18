@@ -21,9 +21,7 @@ export const buildPages = (
   } = {}
 ) => {
   const routerTree = {} as RouterTreeT
-  const keys = weakContext
-    .keys()
-    .flatMap((it) => /.+\.(((ts|js)x?)|vue)$/.exec(it)?.[0] || []) as string[]
+  const keys = weakContext.keys()
 
   keys.forEach((it) => {
     const path = it.slice(2).split('.').slice(0, -1).join('').split('/')
@@ -33,7 +31,10 @@ export const buildPages = (
     })
   })
 
-  return traverseTree(routerTree, prependPath)
+  const routes = traverseTree(routerTree, prependPath)
+
+  // vue router is kinda weird forcing routes to start with '/'
+  return routes.map((it) => Object.assign(it, { path: '/' + it.path }))
 }
 
 function traverseTree(tree: RouterTreeT, path: string) {
@@ -62,6 +63,7 @@ function traverseTree(tree: RouterTreeT, path: string) {
 
 function getRoutePath(path: string, lastSegment: string) {
   var path = path.endsWith('/') ? path.slice(0, -1) : path
+
   var lastSegment =
     lastSegment === 'index'
       ? ''
@@ -69,7 +71,7 @@ function getRoutePath(path: string, lastSegment: string) {
       ? `:${lastSegment.slice(1)}`
       : `${lastSegment}`
 
-  return `${path}/${lastSegment}`
+  return path === '' ? lastSegment : `${path}/${lastSegment}`
 }
 
 function deepSet(obj: Record<PropertyKey, unknown>, path: PropertyKey[], value: unknown) {

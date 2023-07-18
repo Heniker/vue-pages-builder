@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc --project ."
+    "build": "tsc --project .",
+    "watch": "tsc --project . --watch"
   },
   "devDependencies": {
     "@types/webpack": "^5.28.1",

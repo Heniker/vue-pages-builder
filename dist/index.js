@@ -1,9 +1,7 @@
 const routeRecordKey = Symbol('RouteRecord');
 export const buildPages = (weakContext, persistentContext, { prependPath = '/', getName = (path) => weakContext.resolve(path), } = {}) => {
     const routerTree = {};
-    const keys = weakContext
-        .keys()
-        .flatMap((it) => /.+\.(((ts|js)x?)|vue)$/.exec(it)?.[0] || []);
+    const keys = weakContext.keys();
     keys.forEach((it) => {
         const path = it.slice(2).split('.').slice(0, -1).join('').split('/');
         deepSet(routerTree, [...path, routeRecordKey], {
@@ -11,7 +9,9 @@ export const buildPages = (weakContext, persistentContext, { prependPath = '/', 
             component: () => persistentContext(it),
         });
     });
-    return traverseTree(routerTree, prependPath);
+    const routes = traverseTree(routerTree, prependPath);
+    // vue router is kinda weird forcing routes to start with '/'
+    return routes.map((it) => Object.assign(it, { path: '/' + it.path }));
 };
 function traverseTree(tree, path) {
     const names = Object.getOwnPropertyNames(tree);
@@ -36,7 +36,7 @@ function getRoutePath(path, lastSegment) {
         : lastSegment.startsWith('_')
             ? `:${lastSegment.slice(1)}`
             : `${lastSegment}`;
-    return `${path}/${lastSegment}`;
+    return path === '' ? lastSegment : `${path}/${lastSegment}`;
 }
 function deepSet(obj, path, value) {
     path.slice(0, -1).reduce((acc, key) => (acc && acc[key]) || ((acc[key] = {}), acc[key]), obj)[path.slice(-1)[0]] = value;
