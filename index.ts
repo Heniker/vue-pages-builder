@@ -49,6 +49,7 @@ function traverseTree(tree: RouterTreeT, path: string) {
     result.push(routeRecord)
 
     routeRecord.path = path
+    path = ''
     routeRecord.children = []
 
     currentRoute = routeRecord.children
